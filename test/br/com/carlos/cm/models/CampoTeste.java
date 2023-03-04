@@ -10,129 +10,129 @@ import br.com.carlos.cm.exceptions.ExplosionException;
 
 public class CampoTeste {
 
-    private Campo campo;
+    private Minefield campo;
 
     public CampoTeste() {
     }
 
     @BeforeEach
     public void iniciarCampo() {
-        campo = new Campo(3, 3);
+        campo = new Minefield(3, 3);
     }
 
     @Test
     public void testeVizinhoDistancia1Esquerda() {
-        Campo vizinho = new Campo(3, 2);
-        boolean resultado = campo.adicionarVizinho(vizinho);
+        Minefield vizinho = new Minefield(3, 2);
+        boolean resultado = campo.addNeighbor(vizinho);
 
         assertTrue(resultado);
     }
 
     @Test
     public void testeVizinhoDistancia1Direira() {
-        Campo vizinho = new Campo(3, 4);
-        boolean resultado = campo.adicionarVizinho(vizinho);
+        Minefield vizinho = new Minefield(3, 4);
+        boolean resultado = campo.addNeighbor(vizinho);
 
         assertTrue(resultado);
     }
 
     @Test
     public void testeVizinhoDistancia1Emcima() {
-        Campo vizinho = new Campo(2, 3);
-        boolean resultado = campo.adicionarVizinho(vizinho);
+        Minefield vizinho = new Minefield(2, 3);
+        boolean resultado = campo.addNeighbor(vizinho);
 
         assertTrue(resultado);
     }
 
     @Test
     public void testeVizinhoDistancia1Embaixo() {
-        Campo vizinho = new Campo(4, 3);
-        boolean resultado = campo.adicionarVizinho(vizinho);
+        Minefield vizinho = new Minefield(4, 3);
+        boolean resultado = campo.addNeighbor(vizinho);
 
         assertTrue(resultado);
     }
 
     @Test
     public void testeVizinhoDistancia2() {
-        Campo vizinho = new Campo(2, 2);
-        boolean resultado = campo.adicionarVizinho(vizinho);
+        Minefield vizinho = new Minefield(2, 2);
+        boolean resultado = campo.addNeighbor(vizinho);
 
         assertTrue(resultado);
     }
 
     @Test
     public void testeNaoVizinhoDistancia2() {
-        Campo vizinho = new Campo(1, 1);
-        boolean resultado = campo.adicionarVizinho(vizinho);
+        Minefield vizinho = new Minefield(1, 1);
+        boolean resultado = campo.addNeighbor(vizinho);
 
         assertFalse(resultado);
     }
 
     @Test
     public void testeValorPadraoAtributoMarcado() {
-        assertFalse(campo.isMarcado());
+        assertFalse(campo.isMarked());
     }
 
     @Test
     public void testeAlternarMarcacao() {
-        campo.alteranarMarcacao();
-        assertTrue(campo.isMarcado());
+        campo.toggleMarking();
+        assertTrue(campo.isMarked());
     }
 
     @Test
     public void testeAlternarMarcacaoDuasChamadas() {
-        campo.alteranarMarcacao();
-        campo.alteranarMarcacao();
-        assertFalse(campo.isMarcado());
+        campo.toggleMarking();
+        campo.toggleMarking();
+        assertFalse(campo.isMarked());
     }
 
     @Test
     public void testeAbrirNaoMinadoMarcado() {
-        assertTrue(campo.abrir());
+        assertTrue(campo.open());
     }
 
     @Test
     public void testeAbrirMinadoMarcado() {
-        campo.alteranarMarcacao();
-        campo.minar();
-        assertFalse(campo.abrir());
+        campo.toggleMarking();
+        campo.undermine();
+        assertFalse(campo.open());
     }
 
     @Test
     public void testeAbrirMinadoNaoMarcado() {
-        campo.minar();
+        campo.undermine();
 
         assertThrows(ExplosionException.class, () -> {
-            campo.abrir();
+            campo.open();
         });
     }
 
     @Test
     public void testeAbrirComVizinho1() {
-        Campo campo11 = new Campo(1, 1); // vizinho1
+        Minefield campo11 = new Minefield(1, 1); // vizinho1
 
-        Campo campo22 = new Campo(2, 2); // vizinhoDoVizinho1
-        campo22.adicionarVizinho(campo11);
+        Minefield campo22 = new Minefield(2, 2); // vizinhoDoVizinho1
+        campo22.addNeighbor(campo11);
 
-        campo.adicionarVizinho(campo22);
-        campo.abrir();
+        campo.addNeighbor(campo22);
+        campo.open();
 
-        assertTrue(campo22.isAberto() && campo11.isAberto());
+        assertTrue(campo22.isOpen() && campo11.isOpen());
     }
 
     @Test
     void testeAbrirComVizinhos2() {
-        Campo campo11 = new Campo(1, 1);
-        Campo campo12 = new Campo(1, 1);
-        campo12.minar();
+        Minefield campo11 = new Minefield(1, 1);
+        Minefield campo12 = new Minefield(1, 1);
+        campo12.undermine();
 
-        Campo campo22 = new Campo(2, 2);
-        campo22.adicionarVizinho(campo11);
-        campo22.adicionarVizinho(campo12);
+        Minefield campo22 = new Minefield(2, 2);
+        campo22.addNeighbor(campo11);
+        campo22.addNeighbor(campo12);
 
-        campo.adicionarVizinho(campo22);
-        campo.abrir();
+        campo.addNeighbor(campo22);
+        campo.open();
 
-        assertTrue(campo22.isAberto() && campo11.isFechado());
+        assertTrue(campo22.isOpen() && campo11.isClosed());
     }
 }
