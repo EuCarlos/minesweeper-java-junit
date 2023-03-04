@@ -3,7 +3,7 @@ package br.com.carlos.cm.models;
 
 import java.util.ArrayList;
 
-import br.com.carlos.cm.exceptions.ExplosaoException;
+import br.com.carlos.cm.exceptions.ExplosionException;
 
 public class Campo {
     private final int linha;
@@ -58,7 +58,7 @@ public class Campo {
             aberto = true;
 
             if (minado) {
-                throw new ExplosaoException();
+                throw new ExplosionException();
             }
 
             if (vizinhancaSegura()) {

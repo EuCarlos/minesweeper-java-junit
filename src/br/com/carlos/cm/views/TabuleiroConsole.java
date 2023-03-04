@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import br.com.carlos.cm.exceptions.ExplosaoException;
-import br.com.carlos.cm.exceptions.SairException;
+import br.com.carlos.cm.exceptions.ExplosionException;
+import br.com.carlos.cm.exceptions.ExitException;
 import br.com.carlos.cm.models.Tabuleiro;
 
 public class TabuleiroConsole {
@@ -34,7 +34,7 @@ public class TabuleiroConsole {
                     tabuleiro.reiniciar();
                 }
             }
-        } catch (SairException e) {
+        } catch (ExitException e) {
             System.out.println("Tchau!!!");
         } finally {
             entrada.close();
@@ -63,7 +63,7 @@ public class TabuleiroConsole {
 
             System.out.println(tabuleiro);
             System.out.println("Você ganhou!!!");
-        } catch (ExplosaoException e) {
+        } catch (ExplosionException e) {
             System.out.println(tabuleiro);
             System.out.println("Você perdeu!");
         }
@@ -74,7 +74,7 @@ public class TabuleiroConsole {
         String digitado = entrada.nextLine();
 
         if ("sair".equalsIgnoreCase(digitado)) {
-            throw new SairException();
+            throw new ExitException();
         }
 
         return digitado;

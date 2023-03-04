@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-import br.com.carlos.cm.exceptions.ExplosaoException;
+import br.com.carlos.cm.exceptions.ExplosionException;
 
 public class Tabuleiro {
     private int linhas;
@@ -29,7 +29,7 @@ public class Tabuleiro {
                     .filter(c -> c.getLinha() == linha && c.getColuna() == coluna)
                     .findFirst()
                     .ifPresent(c -> c.abrir());
-        } catch (ExplosaoException e) {
+        } catch (ExplosionException e) {
             campos.forEach(c -> c.setAberto(true));
             throw e;
         }

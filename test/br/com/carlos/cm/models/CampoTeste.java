@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 
-import br.com.carlos.cm.exceptions.ExplosaoException;
+import br.com.carlos.cm.exceptions.ExplosionException;
 
 public class CampoTeste {
 
@@ -102,7 +102,7 @@ public class CampoTeste {
     public void testeAbrirMinadoNaoMarcado() {
         campo.minar();
 
-        assertThrows(ExplosaoException.class, () -> {
+        assertThrows(ExplosionException.class, () -> {
             campo.abrir();
         });
     }
