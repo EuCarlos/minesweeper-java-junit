@@ -6,13 +6,13 @@ import java.util.Scanner;
 
 import br.com.carlos.cm.exceptions.ExplosionException;
 import br.com.carlos.cm.exceptions.ExitException;
-import br.com.carlos.cm.models.Tabuleiro;
+import br.com.carlos.cm.models.MinesweeperBoard;
 
 public class TabuleiroConsole {
-    private Tabuleiro tabuleiro;
+    private MinesweeperBoard tabuleiro;
     private Scanner entrada = new Scanner(System.in);
 
-    public TabuleiroConsole(Tabuleiro tabuleiro) {
+    public TabuleiroConsole(MinesweeperBoard tabuleiro) {
         this.tabuleiro = tabuleiro;
 
         executarJogo();
@@ -31,7 +31,7 @@ public class TabuleiroConsole {
                 if ("n".equalsIgnoreCase(resposta)) {
                     continuar = false;
                 } else {
-                    tabuleiro.reiniciar();
+                    tabuleiro.reset();
                 }
             }
         } catch (ExitException e) {
@@ -44,7 +44,7 @@ public class TabuleiroConsole {
     private void cicloDoJogo() {
         try {
 
-            while (!tabuleiro.objetivoAlcancado()) {
+            while (!tabuleiro.goalAchieved()) {
                 System.out.println(tabuleiro);
 
                 String digitado = capturarValorDigitado("Digite (x, y): ");
@@ -55,9 +55,9 @@ public class TabuleiroConsole {
                 digitado = capturarValorDigitado("1 - Abrir ou 2 - (Des)Marcar: ");
 
                 if ("1".equals(digitado)) {
-                    tabuleiro.abrir(xy.next(), xy.next());
+                    tabuleiro.open(xy.next(), xy.next());
                 } else if ("2".equals(digitado)) {
-                    tabuleiro.alternarMarcacao(xy.next(), xy.next());
+                    tabuleiro.toggleMarking(xy.next(), xy.next());
                 }
             }
 
