@@ -1,13 +1,13 @@
 package br.com.carlos.cm;
 
 import br.com.carlos.cm.models.MinesweeperBoard;
-import br.com.carlos.cm.views.TabuleiroConsole;
+import br.com.carlos.cm.views.MinesweeperBoardConsole;
 
 public class App {
 
     public static void main(String[] args) {
 
-        MinesweeperBoard tabuleiro = new MinesweeperBoard(6, 6, 3);
-        new TabuleiroConsole(tabuleiro);
+        MinesweeperBoard minesweeperBoard = new MinesweeperBoard(6, 6, 3);
+        new MinesweeperBoardConsole(minesweeperBoard);
     }
 }
